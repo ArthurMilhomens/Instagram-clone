@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import ReactDOM from 'react-dom';
 
+import Box from '../components/Box'
 import './Feed.css';
 import dot from '../assets/dots.png';
 import like from '../assets/like.png';
 import comment from '../assets/comment.png';
-import send from '../assets/send.png';
+// import send from '../assets/send.png';
 import api from '../services/api';
 
 class Feed extends Component {
@@ -21,7 +23,7 @@ class Feed extends Component {
         api.post(`/posts/${id}/like`);
     }
     registerToSocket = () => {
-        const socket = io('http://172.16.5.164:3333');
+        const socket = io('http://localhost:3333');
         socket.on('post', newPost => {
             this.setState({ feed: [newPost, ...this.state.feed]})
         })
@@ -31,6 +33,11 @@ class Feed extends Component {
             })
         })
     }
+    boxComment() {
+        const target = document.querySelector(".target");
+    
+        ReactDOM.render(<Box/>, target);
+      }
 
     render() {
         return(
@@ -44,13 +51,13 @@ class Feed extends Component {
                          </div>
                          <img src={dot} alt='Dot' />
                      </header>
-                     <img src={`http://172.16.5.164:3333/files/${post.image}`}/>
+                     <img src={`http://localhost:3333/files/${post.image}`}/>
                      <footer>
                          <div className='actions'>
                             <button type='button' onClick={() => this.handleLike(post._id)}>
                                 <img src={like} alt='Like'/>
                             </button>
-                            <button type='button'>
+                            <button type='button' onClick={this.boxComment.bind(this)}>
                                 <img src={comment} alt='comment'/>
                             </button>
                              
@@ -60,13 +67,14 @@ class Feed extends Component {
                              {post.description}
                              <span>{post.hashtags}</span>
                          </p>
-                         <div className="box-comments">
+                         <div className={"target"}></div>
+                         {/* <div className="box-comments">
                             <p>Boiola</p>
                             <input type='text' placeholder='Comentar'/>
                             <button type='button'>
                                 <img src={send} alt='send'/>
                             </button>
-                         </div>
+                         </div> */}
                      </footer>
                  </article>
                 ))}
