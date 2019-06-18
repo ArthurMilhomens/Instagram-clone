@@ -13,6 +13,7 @@ import api from '../services/api';
 class Feed extends Component {
     state = {
         feed: [],
+        showBox: false,
     };
     async componentDidMount(){
         this.registerToSocket();
@@ -35,6 +36,7 @@ class Feed extends Component {
     }
     boxComment() {
         const target = document.querySelector(".target");
+        console.log('meeeu amigo')
     
         ReactDOM.render(<Box/>, target);
       }
@@ -57,7 +59,7 @@ class Feed extends Component {
                             <button type='button' onClick={() => this.handleLike(post._id)}>
                                 <img src={like} alt='Like'/>
                             </button>
-                            <button type='button' onClick={this.boxComment.bind(this)}>
+                            <button type='button' onClick={() => this.setState({ showBox: !this.state.showBox })}>
                                 <img src={comment} alt='comment'/>
                             </button>
                              
@@ -67,14 +69,7 @@ class Feed extends Component {
                              {post.description}
                              <span>{post.hashtags}</span>
                          </p>
-                         <div className={"target"}></div>
-                         {/* <div className="box-comments">
-                            <p>Boiola</p>
-                            <input type='text' placeholder='Comentar'/>
-                            <button type='button'>
-                                <img src={send} alt='send'/>
-                            </button>
-                         </div> */}
+                         {this.state.showBox && <Box/>}
                      </footer>
                  </article>
                 ))}
