@@ -5,10 +5,11 @@ import {
   StatusBar,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
+  Image
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import Back from "../assets/alo.jpg";
+import Back from "../assets/penislogo.png";
 
 function Login(props) {
   const [login, setLogin] = useState("");
@@ -21,8 +22,24 @@ function Login(props) {
         barStyle="light-content"
       />
       <View
-        style={{ width: "100%", height: "100%", backgroundColor: "#000015" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "#000015",
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1
+        }}
       >
+        <Image
+          source={Back}
+          style={{
+            width: "70%",
+            resizeMode: "contain",
+            position: "absolute",
+            bottom: 0
+          }}
+        />
         <View
           style={{
             position: "absolute",
@@ -90,6 +107,16 @@ function Login(props) {
           >
             Login
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            bottom: 150,
+            position: "absolute"
+          }} onPress={() => props.navigation.navigate('Account')}
+        >
+          <Text style={{ color: "#fff" }}>Create Account</Text>
         </TouchableOpacity>
       </View>
     </>

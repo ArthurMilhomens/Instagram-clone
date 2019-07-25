@@ -1,6 +1,8 @@
 import React from "react";
 import Login from "./pages/Login"
 import Feed from "./pages/Feed"
+import Account from "./pages/Account"
+
 
 import Routes from "./routes";
 import {
@@ -9,15 +11,16 @@ import {
   createSwitchNavigator,
 } from "react-navigation";
 
-// const SignedOut = createStackNavigator(
-//     {
-//         Login
-//     },
-//     {
-//         initialRouteName: "Login",
-//         headerMode: "none"
-//     }
-// );
+const SignedOut = createStackNavigator(
+    {
+        Login,
+        Account
+    },
+    {
+        initialRouteName: "Login",
+        headerMode: "none"
+    }
+);
 
 // const SignedIn = createStackNavigator(
 //     {
@@ -29,7 +32,6 @@ import {
 //     }
 // );
 
-
 const createRootNavigator = () => {
     return createSwitchNavigator(
         {
@@ -37,7 +39,7 @@ const createRootNavigator = () => {
                 screen: Routes
             },
             SignedOut:{
-                screen: Login
+                screen: SignedOut
             }
         },
         {
